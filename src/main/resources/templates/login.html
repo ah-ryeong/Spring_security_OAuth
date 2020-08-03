@@ -13,6 +13,22 @@
 		<input type="password" name="password" />
 		<button>로그인</button>
 	</form>
+	
+	<br />
+
+	<h1>Social Login</h1>
+	<br />
+	<!-- javascript:; 는 클릭해도 반응을 없게 하는 키워드 -->
+	<a href="/oauth2/authorization/google"> <!-- 해당 주소를 OAuth클라이언트가 낚아챈다(정해진 양식이기 때문에 주소를 함부러 바꾸면X)
+	끝에 있는 이름만 분석한다. /oauth2/authorization/프로바이더 이름-->
+	<img src="https://pngimage.net/wp-content/uploads/2018/06/google-login-button-png-1.png"
+		alt="google" width="357px" height="117px">
+	</a>
+	<br />
+	<a href="/oauth2/authorization/facebook"> 
+	<img src="https://pngimage.net/wp-content/uploads/2018/06/login-with-facebook-button-png-transparent-1.png"
+		alt="facebook" width="357px" height="117px">
+	</a>
 
 </body>
 </html>

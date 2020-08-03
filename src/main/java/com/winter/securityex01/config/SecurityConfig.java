@@ -8,6 +8,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.winter.securityex01.config.oauth.PrincipalOauth2UserService;
+
 @Configuration // IoC 빈(bean, 객체)을 등록 , 오브젝트는 아님 오브젝트는 메모리에 띄우지 X
 @EnableWebSecurity // 필터 체인 관리 시작(전체 필터를 관리할 수 있는 설정(클래스) 파일), 체인 하나하나를 직접적으로 관리할 수 있다. 필터들 사이에 끼어드는거 X
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) // 컨트롤러 접근 전에 낚아 채도록 함, prePostEnabled = true : 특정 주소 접근시 권한 및 인증을 미리 체크하겠다는 뜻.
@@ -34,6 +36,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.formLogin()
 			.loginPage("/login")
 			.loginProcessingUrl("/loginProc") // 해당 주소로 접속하면 Authentication Manager를 탄다.
-			.defaultSuccessUrl("/"); // 로그인을 낚아채서 해당주소로 리다이렉션해준다.
+			.defaultSuccessUrl("/") // 로그인을 낚아채서 해당주소로 리다이렉션해준다.
+		.and()
+			.oauth2Login() // /oauth2/authorization/google 주소로 접속하면 얘가 낚아챈다, 낚아서 어디로 갈지 서비스를 직접 지정해줘야한다.
+			.loginPage("/login")
+			.userInfoEndpoint()
+			.userService(new PrincipalOauth2UserService()); // 서비스 지정
 	}
 }

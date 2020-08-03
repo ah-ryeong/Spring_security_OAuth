@@ -4,10 +4,12 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.winter.securityex01.model.User;
 
@@ -15,9 +17,10 @@ import lombok.Data;
 
 // Authentication 객체에 저장할 수 있는 유일한 타입이다.
 @Data
-public class PrincipalDetails implements UserDetails {
+public class PrincipalDetails implements UserDetails, OAuth2User {
 
 	private User user;
+	private Map<String, Object> attributes;
 	
 	public PrincipalDetails(User user) { // 생성자
 		super();
@@ -60,6 +63,17 @@ public class PrincipalDetails implements UserDetails {
 		authorities.add(new SimpleGrantedAuthority(user.getRole()));
 		System.out.println("PrincipalDetail 확인 : " +authorities);
 		return authorities; // 여기 유저 정보 전부 다 리턴 
+	}
+
+	// OAuth(리소스) 서버로부터 받는 회원정보
+	@Override
+	public Map<String, Object> getAttributes() { // 회원정보를 리턴한다.
+		return attributes;
+	}
+
+	@Override
+	public String getName() {
+		return "제공자 ID";
 	}
 
 }

@@ -26,3 +26,14 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
         # 내가 적은 속성값을 그대로 데이터베이스에 넣어준다.
     show-sql: true
+    
+  security:
+    oauth2:
+      client:
+        registration:
+          google: # /oauth2/authorization/google 이 주소를 동작하게 한다.
+            client-id: 218306478123-toq48co3dbpqbv9plv5jgkbgqoktu33h.apps.googleusercontent.com
+            client-secret: ZEu9Y5zb5kdzeOa2CLnwgq_Z
+            scope:
+            - email
+            - profile
