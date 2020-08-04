@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.winter.securityex01.config.auth.PrincipalDetails;
 import com.winter.securityex01.config.oauth.provider.FacebookUserInfo;
 import com.winter.securityex01.config.oauth.provider.GoogleUserInfo;
+import com.winter.securityex01.config.oauth.provider.KakaoUserInfo;
 import com.winter.securityex01.config.oauth.provider.OAuth2UserInfo;
 import com.winter.securityex01.model.User;
 import com.winter.securityex01.repository.UserRepository;
@@ -47,6 +48,8 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService {
 			oAuth2UserInfo = new GoogleUserInfo(oAuth2User.getAttributes());
 		} else if (userRequest.getClientRegistration().getRegistrationId().equals("facebook")) {
 			oAuth2UserInfo = new FacebookUserInfo(oAuth2User.getAttributes());
+		} else if (userRequest.getClientRegistration().getRegistrationId().equals("kakao")) {
+			oAuth2UserInfo = new KakaoUserInfo(oAuth2User.getAttributes());
 		} else {
 			System.out.println("Google 또는 Facebook 로그인만 가능합니다.");
 		}
