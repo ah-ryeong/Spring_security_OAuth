@@ -16,7 +16,6 @@ import com.winter.securityex01.model.User;
 import lombok.Data;
 
 // Authentication 객체에 저장할 수 있는 유일한 타입이다.
-@Data
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
 	private User user;
@@ -27,6 +26,20 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 		this.user = user;
 	}
 	
+	// OAuth2.0 로그인시 사용
+	public PrincipalDetails(User user, Map<String, Object> attributes) {
+		this.user = user;
+		this.attributes = attributes;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public String getPassword() {
 		return user.getPassword();

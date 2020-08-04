@@ -14,10 +14,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	// SELECT * FROM user WHERE username = ?1
 	User findByUsername(String username); // 네이밍쿼리 : 자동으로 쿼리를 생성해준다.
 	
-//	@Query(value = "SELECT * FROM user WHERE email = 1?", nativeQuery = true)
+//	@Query(value = "SELECT * FROM user WHERE email = ?1", nativeQuery = true)
 //	Optional<User> mFindEmail(String email);
 	
-	// SELECT * FROM user WHERE email =?1
-	Optional<User> findbyEmail(String email);
+	// SELECT * FROM user WHERE provider = ?1 and providerId = ?1
+	Optional<User> findByProviderAndProviderId(String provider, String providerId);
 	
 }
