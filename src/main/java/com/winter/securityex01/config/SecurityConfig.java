@@ -1,5 +1,6 @@
 package com.winter.securityex01.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,6 +16,9 @@ import com.winter.securityex01.config.oauth.PrincipalOauth2UserService;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true) // 컨트롤러 접근 전에 낚아 채도록 함, prePostEnabled = true : 특정 주소 접근시 권한 및 인증을 미리 체크하겠다는 뜻.
 // securedEnabled = true : 특정 주소 접근시 권한 및 인증을 위한 어노테이션 활성화 SecurityConfig.java에 설정
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private PrincipalOauth2UserService principalOauth2UserService;
 	
 	@Bean // 리턴할 때 IoC 등록, 메서드를 IoC하는 방법임
 	public BCryptPasswordEncoder encodePwd() {
@@ -41,6 +45,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.oauth2Login() // /oauth2/authorization/google 주소로 접속하면 얘가 낚아챈다, 낚아서 어디로 갈지 서비스를 직접 지정해줘야한다.
 			.loginPage("/login")
 			.userInfoEndpoint()
-			.userService(new PrincipalOauth2UserService()); // 서비스 지정
+			.userService(principalOauth2UserService); // 서비스 지정
 	}
 }
